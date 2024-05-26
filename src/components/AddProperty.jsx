@@ -6,7 +6,7 @@ import {
   TextField,
 } from "@mui/material";
 import { Button } from "flowbite-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { HiPlusCircle } from "react-icons/hi";
 import {
   getDownloadURL,
@@ -16,6 +16,7 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext";
 
 const AddProperty = () => {
   const [imagefile, setImageFile] = useState(null);
@@ -41,6 +42,8 @@ const AddProperty = () => {
     propertyType: "",
     rent: "",
   });
+
+  const { user } = useContext(UserContext); 
 
   const filePickerRef = useRef();
 
@@ -121,7 +124,8 @@ const AddProperty = () => {
           method: 'POST',
           credentials: "include",
           headers: {
-            'Content-Type': 'application/json',
+            'Authorization': user.token,
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(formData)
         })

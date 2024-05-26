@@ -86,6 +86,7 @@ const Explore = () => {
         method: "POST",
         credentials: "include",
         headers: {
+          'Authorization': user.token,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ sellerId: property.userId, buyerId: user._id }),

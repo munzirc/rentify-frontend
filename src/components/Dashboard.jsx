@@ -33,7 +33,7 @@ const Dashboard = () => {
 
   const [pageNum, setPageNum] = useState(1);
 
-  const { setPostToUpdate } = useContext(UserContext);
+  const { user, setPostToUpdate } = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -43,6 +43,11 @@ const Dashboard = () => {
         const uri = import.meta.env.VITE_BASE_URL;
         const response = await fetch(`${uri}/api/seller/getproperties`, {
           credentials: "include",
+          method: 'GET',
+          headers: {
+            'Authorization': user.token,
+            "Content-Type": "application/json",
+          },
         });
         const data = await response.json();
         if (data.error) {
@@ -73,7 +78,11 @@ const Dashboard = () => {
       const response = await fetch(
         `${uri}/api/seller/deleteproperty/${propertyToDelete._id}`,
         {
-          method: "DELETE",
+          method: 'DELETE',
+          headers: {
+            'Authorization': user.token,
+            "Content-Type": "application/json",
+          },
           credentials: "include",
         }
       );
@@ -103,7 +112,12 @@ const Dashboard = () => {
       const response = await fetch(
         `${uri}/api/seller/getproperties?page=${value}`,
         {
-          credentials: "include",
+          method: "GET",
+          credentials: 'include',
+          headers: {
+            'Authorization': user.token,
+            "Content-Type": "application/json",
+          },
         }
       );
       const data = await response.json();
@@ -119,7 +133,7 @@ const Dashboard = () => {
 
   return (
     <>
-      {properties.length === 0 ? (
+      {properties && properties.length === 0 ? (
         <div className="text-center mt-28">
           <p className="text-xl font-bold">You haven't posted anything yet!</p>
           <p className="text-base">Start posting properties to get started</p>

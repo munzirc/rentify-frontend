@@ -19,7 +19,7 @@ import { app } from "../firebase";
 import { useNavigate } from "react-router-dom";
 
 const UpdatePost = () => {
-  const { postToUpdate, setPostToUpdate } = useContext(UserContext);
+  const { postToUpdate, setPostToUpdate , user} = useContext(UserContext);
 
   console.log(postToUpdate);
   const [imagefile, setImageFile] = useState(null);
@@ -125,6 +125,7 @@ const UpdatePost = () => {
           method: "PUT",
           credentials: "include",
           headers: {
+            'Authorization': user.token,
             "Content-Type": "application/json",
           },
           body: JSON.stringify(postToUpdate),

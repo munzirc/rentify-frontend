@@ -145,7 +145,6 @@ function Navbar() {
         const uri = import.meta.env.VITE_BASE_URL;
         const response = await fetch(`${uri}/api/auth/login`, {
           method: "POST",
-          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -181,7 +180,6 @@ function Navbar() {
 
         const response = await fetch(`${uri}/api/auth/register`, {
           method: "POST",
-          credentials: "include",
           headers: {
             "Content-Type": "application/json",
           },
@@ -229,7 +227,7 @@ function Navbar() {
     try {
       setLogoutLoad(true);
       const uri = import.meta.env.VITE_BASE_URL;
-      const response = await fetch(`${uri}/api/auth/logout`,{credentials:"include"});
+      const response = await fetch(`${uri}/api/auth/logout`);
       const data = await response.json();
       if (data.error) {
         throw new Error(data.error);

@@ -51,6 +51,7 @@ const Card = ({ property, handleClick }) => {
           method: "PUT",
           credentials: "include",
           headers: {
+            'Authorization': user.token,
             "Content-Type": "application/json",
           },
         }
@@ -77,6 +78,10 @@ const Card = ({ property, handleClick }) => {
         {
           method: "DELETE",
           credentials: "include",
+          headers: {
+            'Authorization': user.token,
+            "Content-Type": "application/json",
+          },
         }
       );
       console.log(response.json());
