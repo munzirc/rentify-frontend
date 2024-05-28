@@ -1,5 +1,5 @@
 import { Button, TextField } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { HiArrowCircleRight } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
@@ -11,6 +11,21 @@ const Home = () => {
 
   const [city, setCity] = useState(null);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const checkHealth = async () => {
+      try {
+        const uri = import.meta.env.VITE_BASE_URL;
+        await fetch(`${uri}/health`);
+      } catch (err) {
+        console.error("API call error:", err);
+      }
+    };
+
+    const intervalId = setInterval(checkHealth, 5 * 60000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const handleClick = () => {
 
