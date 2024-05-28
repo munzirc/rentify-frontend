@@ -381,6 +381,7 @@ function Navbar() {
             </p>
           </Box>
           {loginError && <Alert severity="error">{loginError}</Alert>}
+          {isLoginLoading && <p className="text-center">Please wait for a moment, The server may be down due to Inactivity!</p>}
         </Box>
       </Modal>
       <Modal
@@ -498,6 +499,7 @@ function Navbar() {
             </p>
           </Box>
           {regError && <Alert severity="error">{regError}</Alert>}
+          {isRegisterLoading && <p className="text-center">Please wait for a moment, The server may be down due to Inactivity!</p>}
         </Box>
       </Modal>
       <Snackbar open={logout} autoHideDuration={6000} onClose={()=> setLogout(false)}>
